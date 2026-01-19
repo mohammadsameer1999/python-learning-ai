@@ -140,3 +140,18 @@ Bytecode (.pyc)
 Program Output
 ```
 *Complete Python code execution flow diagram*
+
+
+## Python Virtual Machine (PVM)
+## Python (.py) → Bytecode (.pyc) → Python Virtual Machine → Machine Instructions
+* Python = interpreted + bytecode-based language
+
+* Not directly understood by the CPU
+
+* code loop to iterate byte code
+* Rum time Engine
+* Also know as python interpreter
+## Byte Code is not machine code
+
+-- Python specific interpretatio
+-> Cpython()standard implementation, Jython, Iron Python, StackLess, PyPy
