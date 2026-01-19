@@ -5,7 +5,12 @@
 - The Python interpreter first compiles the source code into **bytecode**
 - The bytecode is executed by the **Python Virtual Machine (PVM)**
 
-![Python Compilation Overview](images/python-compilation-overview.png)
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Source Code   │───▶│    Bytecode     │───▶│  Python VM      │
+│   (.py file)    │    │   (.pyc file)   │    │  (Execution)    │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
 *Overall Python compilation and execution process*
 
 ---
@@ -21,7 +26,14 @@
 .py → Bytecode
 ```
 
-![Source to Bytecode](images/source-to-bytecode.png)
+```
+hello.py               Compiler               hello.pyc
+┌──────────────┐       ┌────────┐       ┌─────────────────┐
+│ def hello(): │      │ Python │      │ Bytecode:       │
+│   print("Hi")│ ────▶│ Parser │────▶ │ LOAD_GLOBAL     │
+│              │      │ & AST  │      │ CALL_FUNCTION   │
+└──────────────┘       └────────┘       └─────────────────┘
+```
 *Conversion of Python source code to bytecode*
 
 ## Step 2: Bytecode Files (.pyc)
@@ -39,7 +51,17 @@ __pycache__/
   hello_sameer.cpython-314.pyc
 ```
 
-![Pycache Directory](images/pycache-structure.png)
+```
+Project Directory
+│
+├── main.py
+├── hello_sameer.py
+│
+└── __pycache__/
+    ├── hello_sameer.cpython-314.pyc
+    ├── utils.cpython-314.pyc
+    └── config.cpython-314.pyc
+```
 *Structure of __pycache__ directory with .pyc files*
 
 ## Step 3: __pycache__ Directory
@@ -68,7 +90,16 @@ import hello_sameer   # .pyc file is created
 python main.py        # no .pyc file for main.py
 ```
 
-![Import vs Script Execution](images/import-vs-script.png)
+```
+Import Module:                    Run Script:
+┌─────────────────┐              ┌─────────────────┐
+│ import module   │              │ python script.py│
+│                 │              │                 │
+│ ✓ Creates .pyc  │              │ ✗ No .pyc file │
+│ ✓ Faster reload │              │ ✗ Compile every │
+│                 │              │   time          │
+└─────────────────┘              └─────────────────┘
+```
 *Difference between importing modules and running scripts*
 
 ## Execution Flow (Summary)
@@ -76,5 +107,36 @@ python main.py        # no .pyc file for main.py
 .py → Bytecode (.pyc) → Python Virtual Machine → Program Output
 ```
 
-![Complete Execution Flow](images/execution-flow.png)
+```
+Complete Python Execution Flow:
+
+Source Code (.py)
+       │
+       ▼
+┌─────────────────┐
+│ Lexical Analysis│ ──┐
+└─────────────────┘   │
+       │              │
+       ▼              │ Python
+┌─────────────────┐   │ Compiler
+│ Parsing (AST)   │ ──┤
+└─────────────────┘   │
+       │              │
+       ▼              │
+┌─────────────────┐   │
+│ Code Generation │ ──┘
+└─────────────────┘
+       │
+       ▼
+Bytecode (.pyc)
+       │
+       ▼
+┌─────────────────┐
+│ Python Virtual  │
+│ Machine (PVM)   │
+└─────────────────┘
+       │
+       ▼
+Program Output
+```
 *Complete Python code execution flow diagram*
